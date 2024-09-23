@@ -1,13 +1,17 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import {Component} from '@angular/core';
+import {RouterOutlet, RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-root',
+  template: `
+    <nav>
+      <a routerLink="/">Home</a>
+      |
+      <a routerLink="/user">User</a>
+    </nav>
+    <router-outlet />
+  `,
   standalone: true,
-  imports: [RouterOutlet],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  imports: [RouterOutlet, RouterLink],
 })
-export class AppComponent {
-  title = 'groupProj';
-}
+export class AppComponent {}
