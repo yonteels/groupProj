@@ -9,6 +9,7 @@ import {RouterOutlet, RouterLink} from '@angular/router';
       |
       <a routerLink="/user">User</a>
     </nav>
+    
     <router-outlet />
   `,
   standalone: true,
