@@ -14,4 +14,6 @@ import {RouterOutlet, RouterLink} from '@angular/router';
   standalone: true,
   imports: [RouterOutlet, RouterLink],
 })
-export class AppComponent {}
+export class AppComponent {
+  title = 'groupProj'; 
+}
