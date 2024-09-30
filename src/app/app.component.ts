@@ -5,7 +5,7 @@ import {RouterOutlet, RouterLink} from '@angular/router';
   selector: 'app-root',
   template: `
 
-    <app-nav-bar></app-nav-bar>
+    <nav-bar></nav-bar>
     
     <router-outlet />
   `,
