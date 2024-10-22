@@ -63,10 +63,23 @@ type AnimeDetail struct {
 func getAnimeDetail(w http.ResponseWriter, r *http.Request) {
 	log.Println("Received request for /allanime")
 
-	sqlStatement := `SELECT * FROM allanime`
-	log.Println("Executing database query")
+	// Get pagination parameters from query string
+	limit := 50 // Default to 50
+	offset := 0 // Default to 0 (start)
+	queryParams := r.URL.Query()
 
-	rows, err := db.Query(sqlStatement)
+	// Check if limit and offset are provided, if not, use default values
+	if queryParams.Get("limit") != "" {
+		fmt.Sscanf(queryParams.Get("limit"), "%d", &limit)
+	}
+	if queryParams.Get("offset") != "" {
+		fmt.Sscanf(queryParams.Get("offset"), "%d", &offset)
+	}
+
+	sqlStatement := `SELECT * FROM allanime LIMIT ? OFFSET ?`
+	log.Println("Executing database query with limit and offset")
+
+	rows, err := db.Query(sqlStatement, limit, offset)
 	if err != nil {
 		http.Error(w, "Database query error", http.StatusInternalServerError)
 		log.Printf("Database query error: %s", err)
@@ -82,11 +95,9 @@ func getAnimeDetail(w http.ResponseWriter, r *http.Request) {
 		err := rows.Scan(&anime.ID, &anime.Title, &anime.Picture, &anime.Score, &anime.Rank, &anime.Popularity, &anime.Synopsis, &anime.Episodes, &anime.Status, &anime.Aired, &anime.Genres)
 		if err != nil {
 			http.Error(w, "Error scanning data", http.StatusInternalServerError)
-			log.Printf("Error scanning data: %s", err) // Log error with detailed message
+			log.Printf("Error scanning data: %s", err)
 			return
 		}
-
-		log.Printf("Anime: %+v\n", anime) // Log the entire anime object
 		animeList = append(animeList, anime)
 	}
 
