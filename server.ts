@@ -1,6 +1,6 @@
 import { createServer } from 'http';
 import { renderModule } from '@angular/platform-server';
-import { AppServerModule } from './app/app.server.module';  // Adjust the path as necessary
+import { AppServerModule } from './src/app/app.server.module'  // Adjust the path as necessary
 import { enableProdMode } from '@angular/core';
 
 enableProdMode();  // Enable production mode for better performance
